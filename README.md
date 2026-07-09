@@ -1,16 +1,60 @@
-# React + Vite
+# GameVerse 🎮
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Catálogo de videojuegos utilizando la API de RAWG.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Listado de videojuegos con cuadrícula responsive
+- Búsqueda por nombre
+- Filtros por género, plataforma y ordenamiento
+- Vista detallada de cada juego
+- CRUD de favoritos con notas personales (LocalStorage)
+- Modo oscuro / claro
+- Diseño responsive y moderno
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- Vite 8
+- React Router
+- CSS Modules
+- Fetch API
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+## Configuración
+
+Obtén una API key gratuita en https://rawg.io/apidocs y créa un archivo `.env`:
+
+```
+VITE_RAWG_API_KEY=tu_api_key_aqui
+```
+
+## Ejecutar
+
+```bash
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Estructura
+
+```
+src/
+├── api/          # Llamadas a la API de RAWG
+├── components/   # Componentes reutilizables
+├── context/      # ThemeContext y FavoritesContext
+├── hooks/        # Custom hooks
+├── pages/        # Páginas (Home, Detail, Favorites)
+├── services/     # Utilidades (LocalStorage)
+└── styles/       # Estilos globales
+```
