@@ -1,0 +1,23 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s ease;
+  min-width: 160px;
+}
+
+.select:focus {
+  border-color: var(--accent);
+}
