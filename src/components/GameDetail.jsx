@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getGameDetails, getGameScreenshots } from '../api/rawgApi';
 import { useFavorites } from '../context/FavoritesContext';
 import { useUserActivity } from '../context/UserActivityContext';
+import { useAchievements } from '../context/AchievementsContext';
 import Spinner from './Spinner';
 import ErrorMessage from './ErrorMessage';
 import StarRating from './StarRating';
@@ -15,6 +16,8 @@ export default function GameDetail({ gameId }) {
   const [error, setError] = useState(null);
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const { rateGame, getRating, toggleCompleted, isCompleted, saveReview, getReview } = useUserActivity();
+  const { trackVisit } = useAchievements();
+  const tracked = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -39,6 +42,13 @@ export default function GameDetail({ gameId }) {
       cancelled = true;
     };
   }, [gameId]);
+
+  useEffect(() => {
+    if (!tracked.current) {
+      tracked.current = true;
+      trackVisit();
+    }
+  }, [trackVisit]);
 
   if (loading) return <Spinner />;
   if (error) return <ErrorMessage message={error} />;

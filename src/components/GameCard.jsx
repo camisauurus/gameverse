@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import confetti from 'canvas-confetti';
 import { useFavorites } from '../context/FavoritesContext';
 import { useToast } from '../context/ToastContext';
 import styles from './GameCard.module.css';
@@ -22,6 +23,7 @@ function GameCard({ game, index = 0 }) {
     } else {
       addFavorite(game);
       addToast(`${game.name} agregado a favoritos`, 'success');
+      confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
     }
   };
 

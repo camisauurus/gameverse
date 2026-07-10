@@ -35,9 +35,13 @@ export function UserActivityProvider({ children }) {
 
   const getReview = useCallback((gameId) => reviews[gameId] || null, [reviews]);
 
+  const ratingsCount = Object.keys(ratings).length;
+  const completedCount = completed.length;
+  const reviewsCount = Object.keys(reviews).length;
+
   return (
     <UserActivityContext.Provider
-      value={{ rateGame, getRating, toggleCompleted, isCompleted, saveReview, getReview }}
+      value={{ rateGame, getRating, ratingsCount, toggleCompleted, isCompleted, completedCount, saveReview, getReview, reviewsCount }}
     >
       {children}
     </UserActivityContext.Provider>

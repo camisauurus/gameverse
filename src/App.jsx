@@ -4,12 +4,14 @@ import { ThemeProvider } from './context/ThemeContext';
 import { FavoritesProvider } from './context/FavoritesContext';
 import { ToastProvider } from './context/ToastContext';
 import { UserActivityProvider } from './context/UserActivityContext';
+import { AchievementsProvider } from './context/AchievementsContext';
 import ThemeToggle from './components/ThemeToggle';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import DetailPage from './pages/DetailPage';
 import FavoritesPage from './pages/FavoritesPage';
 import GuessPage from './pages/GuessPage';
+import DashboardPage from './pages/DashboardPage';
 import styles from './App.module.css';
 
 function AnimatedRoutes() {
@@ -29,6 +31,7 @@ function AnimatedRoutes() {
           <Route path="/game/:id" element={<DetailPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/guess" element={<GuessPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -51,6 +54,9 @@ function AppContent() {
               </NavLink>
               <NavLink to="/guess" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>
                 Adivina el Juego
+              </NavLink>
+              <NavLink to="/dashboard" className={({ isActive }) => isActive ? `${styles.link} ${styles.active}` : styles.link}>
+                Dashboard
               </NavLink>
               <ThemeToggle />
             </div>
@@ -77,7 +83,9 @@ export default function App() {
       <FavoritesProvider>
         <ToastProvider>
           <UserActivityProvider>
-            <AppContent />
+            <AchievementsProvider>
+              <AppContent />
+            </AchievementsProvider>
           </UserActivityProvider>
         </ToastProvider>
       </FavoritesProvider>
