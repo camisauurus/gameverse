@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
+import { useToast } from '../context/ToastContext';
 import styles from './FavoritesList.module.css';
 
 export default function FavoritesList() {
   const { favorites, removeFavorite, updateNote } = useFavorites();
+  const { addToast } = useToast();
   const [editingId, setEditingId] = useState(null);
   const [noteText, setNoteText] = useState('');
 
@@ -16,6 +18,7 @@ export default function FavoritesList() {
   const saveNote = (id) => {
     updateNote(id, noteText);
     setEditingId(null);
+    addToast('Nota guardada', 'success');
   };
 
   if (favorites.length === 0) {
@@ -75,7 +78,10 @@ export default function FavoritesList() {
 
           <button
             className={styles.removeBtn}
-            onClick={() => removeFavorite(game.id)}
+            onClick={() => {
+              removeFavorite(game.id);
+              addToast(`${game.name} eliminado de favoritos`, 'info');
+            }}
           >
             🗑️
           </button>

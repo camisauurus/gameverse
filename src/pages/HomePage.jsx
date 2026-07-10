@@ -1,8 +1,11 @@
+import { motion } from 'framer-motion';
 import { useGames } from '../hooks/useGames';
+import HeroSection from '../components/HeroSection';
 import GameGrid from '../components/GameGrid';
 import SearchBar from '../components/SearchBar';
 import Filters from '../components/Filters';
 import Spinner from '../components/Spinner';
+import SkeletonCard from '../components/SkeletonCard';
 import EmptyState from '../components/EmptyState';
 import ErrorMessage from '../components/ErrorMessage';
 import styles from './HomePage.module.css';
@@ -25,9 +28,13 @@ export default function HomePage() {
   } = useGames();
 
   return (
-    <div className={styles.home}>
-      <h1 className={styles.title}>GameVerse</h1>
-      <p className={styles.subtitle}>Explora el universo de los videojuegos</p>
+    <motion.div
+      className={styles.home}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <HeroSection />
 
       <div className={styles.controls}>
         <SearchBar onSearch={setSearch} />
@@ -53,9 +60,17 @@ export default function HomePage() {
         />
       )}
 
+      {!error && games.length === 0 && loading && (
+        <div className={styles.grid}>
+          {Array.from({ length: 8 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
+      )}
+
       <GameGrid games={games} />
 
-      {loading && <Spinner />}
+      {loading && games.length > 0 && <Spinner />}
 
       {hasMore && !loading && games.length > 0 && (
         <div className={styles.loadMoreWrapper}>
@@ -64,6 +79,6 @@ export default function HomePage() {
           </button>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

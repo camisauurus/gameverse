@@ -3,13 +3,22 @@
 }
 
 .title {
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin: 0 0 4px;
-  background: linear-gradient(135deg, var(--accent), #60a5fa);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.6rem;
+  margin: 0 0 12px;
+  background: linear-gradient(135deg, var(--accent), #60a5fa, #ec4899);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: titlePulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px var(--glow));
+  line-height: 1.4;
+}
+
+@keyframes titlePulse {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .subtitle {
@@ -33,6 +42,13 @@
   }
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 0 0 24px;
+}
+
 .loadMoreWrapper {
   display: flex;
   justify-content: center;
@@ -41,17 +57,24 @@
 
 .loadMore {
   padding: 14px 40px;
-  border-radius: 10px;
-  border: none;
+  border-radius: 4px;
+  border: 2px solid var(--accent);
   background: var(--accent);
   color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: 'Press Start 2P', cursive;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 3px 0 var(--accent-hover),
+    0 4px 12px var(--glow);
+  text-transform: uppercase;
 }
 
 .loadMore:hover {
   background: var(--accent-hover);
   transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 var(--accent-hover),
+    0 6px 20px var(--glow);
 }

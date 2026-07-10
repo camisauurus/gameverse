@@ -7,17 +7,26 @@
 
 .select {
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 4px;
   border: 2px solid var(--border);
   background: var(--card-bg);
   color: var(--text);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-family: 'Press Start 2P', cursive;
   cursor: pointer;
   outline: none;
   transition: border-color 0.3s ease;
   min-width: 160px;
+  box-shadow: 0 2px 0 var(--border);
+  text-transform: uppercase;
 }
 
 .select:focus {
   border-color: var(--accent);
+  box-shadow: 0 2px 0 var(--accent);
+}
+
+.select option {
+  font-family: 'Inter', sans-serif;
+  text-transform: none;
 }

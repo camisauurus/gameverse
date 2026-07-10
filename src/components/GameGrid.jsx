@@ -6,8 +6,8 @@ export default function GameGrid({ games }) {
 
   return (
     <div className={styles.grid}>
-      {games.map((game) => (
-        <GameCard key={game.id} game={game} />
+      {games.map((game, i) => (
+        <GameCard key={game.id} game={game} index={i} />
       ))}
     </div>
   );

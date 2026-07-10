@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { getGameDetails, getGameScreenshots } from '../api/rawgApi';
 import { useFavorites } from '../context/FavoritesContext';
+import { useUserActivity } from '../context/UserActivityContext';
 import Spinner from './Spinner';
 import ErrorMessage from './ErrorMessage';
+import StarRating from './StarRating';
+import ReviewForm from './ReviewForm';
 import styles from './GameDetail.module.css';
 
 export default function GameDetail({ gameId }) {
@@ -11,6 +14,7 @@ export default function GameDetail({ gameId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+  const { rateGame, getRating, toggleCompleted, isCompleted, saveReview, getReview } = useUserActivity();
 
   useEffect(() => {
     let cancelled = false;
@@ -116,6 +120,40 @@ export default function GameDetail({ gameId }) {
               </a>
             </div>
           )}
+        </div>
+
+        <div className={styles.userSection}>
+          <h2>Tu actividad</h2>
+          <div className={styles.userActions}>
+            <div className={styles.userItem}>
+              <span className={styles.userLabel}>Tu puntuación</span>
+              <StarRating value={getRating(game.id)} onChange={(s) => rateGame(game.id, s)} />
+              {getRating(game.id) > 0 && (
+                <span className={styles.userValue}>{getRating(game.id)}/5</span>
+              )}
+            </div>
+            <div className={styles.userItem}>
+              <button
+                className={`${styles.completeBtn} ${isCompleted(game.id) ? styles.completed : ''}`}
+                onClick={() => toggleCompleted(game.id)}
+              >
+                {isCompleted(game.id) ? '✅ Completado' : '⬜ Marcar como completado'}
+              </button>
+            </div>
+          </div>
+          <div className={styles.reviewSection}>
+            <span className={styles.userLabel}>Tu reseña</span>
+            <ReviewForm
+              initialText={getReview(game.id)?.text || ''}
+              onSave={(text) => saveReview(game.id, text)}
+            />
+            {getReview(game.id) && (
+              <p className={styles.reviewDate}>
+                {getReview(game.id).edited ? 'Editada' : 'Creada'}{' '}
+                el {new Date(getReview(game.id).date).toLocaleDateString('es-CL')}
+              </p>
+            )}
+          </div>
         </div>
 
         {game.description_raw && (
